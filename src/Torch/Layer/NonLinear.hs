@@ -5,7 +5,7 @@ module Torch.Layer.NonLinear (
   decodeAct
   ) where
 
-import Prelude hiding (tanh)
+import Prelude hiding (tanh, div, exp)
 import GHC.Generics              --base
 import qualified Data.Aeson as A --aeson
 import Torch.Tensor (Tensor(..)) --hasktorch
@@ -27,6 +27,6 @@ decodeAct actname = case actname of
                    Selu -> selu
   -- | HACK : Torch.Functional.tanhとexpが `Segmentation fault`になるため
   where tanh x = 2 * (sigmoid $ 2 * x) - 1
-        softmax x = Torch.Functional.div expInput expSum
-          where expInput =  Torch.Functional.exp x
+        softmax x = expInput `div` expSum
+          where expInput =  exp x
                 expSum = sumAll expInput

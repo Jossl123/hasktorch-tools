@@ -34,7 +34,7 @@ zeros' dev shape = zeros shape $ withDevice dev defaultOpts
 -- * x : The index of the 1
 -- * size : Length of the wanted tensor
 oneAtPos :: Int -> Int -> Tensor
-oneAtPos x size = asTensor $ (replicate x (0 :: Float) ) ++ [1.0] ++ (replicate (size - x - 1) (0::Float) )  
+oneAtPos x size = asTensor $ take size $ (replicate x (0 :: Float) ) ++ [1.0] ++ (replicate (size - x - 1) (0::Float) )  
 
 -- | Return a 2d Tensor with a 1 at the x y position and 0 everywhere else
 -- * x : The x index of the 1
